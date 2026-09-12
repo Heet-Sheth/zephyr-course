@@ -2,6 +2,14 @@
 
 / {
     aliases {
-        signal-led = &red_led;
+        led0 = &ext_led;
+    };
+
+    leds {
+        compatible = "gpio-leds";
+        ext_led: led_0 {
+            /* For GPIO 0-31 use &gpio0, for 32-47 use &gpio1 */
+            gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
+        };
     };
 };

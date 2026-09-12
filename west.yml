@@ -2,11 +2,12 @@ manifest:
   version: 1.0
 
   projects:
-    - name: zephyr
+    - name: "zephyr"
       url: https://github.com/zephyrproject-rtos/zephyr
-      revision: v4.2.0
+      revision: main
       import:
         name-allowlist:
           - cmsis_6
+          - hal_espressif
           - hal_nxp
         path-prefix: deps
