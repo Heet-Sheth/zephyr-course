@@ -4,22 +4,16 @@
 #include <zephyr/random/random.h>
 
 /* The devicetree node identifier for the "led0" alias. */
-#define LED_NODE DT_ALIAS(led0)
+#define LED_NODE DT_ALIAS(signal_led)
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
-uint32_t blink_time = CONFIG_BLINK_SPEED_TIME_MS;
+uint32_t blink_time = CONFIG_APP_LED;
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
 int main(void)
 {
-    if (!IS_ENABLED(CONFIG_LED_SUBSYSTEM))
-    {
-        LOG_ERR("LED Subsystem is disabled, please enable it in the configuration...");
-        return -1;
-    }
-
     bool led_state = true;
 
     if (!gpio_is_ready_dt(&led))
@@ -35,11 +29,7 @@ int main(void)
 
         led_state = !led_state;
 
-        if (IS_ENABLED(CONFIG_LED_DEBUGGING))
-            LOG_INF("LED state: %s for %u ms\n", led_state ? "ON" : "OFF", blink_time);
-
-        if (IS_ENABLED(CONFIG_CUSTOM_BLINK))
-            blink_time = sys_rand8_get() * 10;
+        LOG_INF("LED state: %s for %u ms\n", led_state ? "ON" : "OFF", blink_time);
 
         k_msleep(blink_time);
     }

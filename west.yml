@@ -8,5 +8,5 @@ manifest:
       import:
         name-allowlist:
           - cmsis_6
-          - hal_espressif
+          - hal_nxp
         path-prefix: deps
