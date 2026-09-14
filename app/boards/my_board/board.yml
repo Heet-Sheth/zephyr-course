@@ -1,0 +1,6 @@
+board:
+  name: my_board
+  full_name: MYb BOARD
+  vendor: DarkPro
+  socs:
+  - name: mcxn236

@@ -2,7 +2,7 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/logging/log.h>
 
-#define LED_NODE DT_ALIAS(led0)
+#define LED_NODE DT_ALIAS(led3)
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
@@ -26,6 +26,6 @@ int main(void)
 
         led_state = !led_state;
 
-        k_msleep(100);
+        k_msleep(1000);
     }
 }
