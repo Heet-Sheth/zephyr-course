@@ -5,6 +5,7 @@
 #include <zephyr/init.h>
 #include <zephyr/device.h>
 #include <zephyr/dt-bindings/clock/mcux_lpc_syscon_clock.h>
+#include <zephyr/sys/printk.h>
 #include <fsl_clock.h>
 #include <fsl_spc.h>
 #include <soc.h>
@@ -16,19 +17,21 @@
 #include <usb.h>
 
 /* USB PHY configuration */
-#define BOARD_USB_PHY_D_CAL     (0x04U)
+#define BOARD_USB_PHY_D_CAL (0x04U)
 #define BOARD_USB_PHY_TXCAL45DP (0x07U)
 #define BOARD_USB_PHY_TXCAL45DM (0x07U)
 
 usb_phy_config_struct_t usbPhyConfig = {
-	BOARD_USB_PHY_D_CAL, BOARD_USB_PHY_TXCAL45DP, BOARD_USB_PHY_TXCAL45DM,
+	BOARD_USB_PHY_D_CAL,
+	BOARD_USB_PHY_TXCAL45DP,
+	BOARD_USB_PHY_TXCAL45DM,
 };
 #endif
 
 /* Board xtal frequency in Hz */
-#define BOARD_XTAL0_CLK_HZ                        24000000U
+#define BOARD_XTAL0_CLK_HZ 24000000U
 /* Core clock frequency: 150MHz */
-#define CLOCK_INIT_CORE_CLOCK                     150000000U
+#define CLOCK_INIT_CORE_CLOCK 150000000U
 /* System clock frequency. */
 extern uint32_t SystemCoreClock;
 
@@ -36,7 +39,7 @@ static void enable_lpcac(void)
 {
 	SYSCON->LPCAC_CTRL |= SYSCON_LPCAC_CTRL_CLR_LPCAC_MASK;
 	SYSCON->LPCAC_CTRL &= ~(SYSCON_LPCAC_CTRL_CLR_LPCAC_MASK |
-				SYSCON_LPCAC_CTRL_DIS_LPCAC_MASK);
+							SYSCON_LPCAC_CTRL_DIS_LPCAC_MASK);
 }
 
 /* Update Active mode voltage for OverDrive mode. */
@@ -44,21 +47,21 @@ void power_mode_od(void)
 {
 	/* Set the DCDC VDD regulator to 1.2 V voltage level */
 	spc_active_mode_dcdc_option_t opt = {
-		.DCDCVoltage       = kSPC_DCDC_OverdriveVoltage,
+		.DCDCVoltage = kSPC_DCDC_OverdriveVoltage,
 		.DCDCDriveStrength = kSPC_DCDC_NormalDriveStrength,
 	};
 	SPC_SetActiveModeDCDCRegulatorConfig(SPC0, &opt);
 
 	/* Set the LDO_CORE VDD regulator to 1.2 V voltage level */
 	spc_active_mode_core_ldo_option_t ldo_opt = {
-		.CoreLDOVoltage       = kSPC_CoreLDO_OverDriveVoltage,
+		.CoreLDOVoltage = kSPC_CoreLDO_OverDriveVoltage,
 		.CoreLDODriveStrength = kSPC_CoreLDO_NormalDriveStrength,
 	};
 	SPC_SetActiveModeCoreLDORegulatorConfig(SPC0, &ldo_opt);
 
 	/* Specifies the 1.2V operating voltage for the SRAM's read/write timing margin */
 	spc_sram_voltage_config_t cfg = {
-		.operateVoltage       = kSPC_sramOperateAt1P2V,
+		.operateVoltage = kSPC_sramOperateAt1P2V,
 		.requestVoltageUpdate = true,
 	};
 	SPC_SetSRAMOperateVoltage(SPC0, &cfg);
@@ -87,12 +90,11 @@ void board_early_init_hook(void)
 	/* Set up PLL0 */
 	const pll_setup_t pll0Setup = {
 		.pllctrl = SCG_APLLCTRL_SOURCE(1U) | SCG_APLLCTRL_SELI(27U) |
-			   SCG_APLLCTRL_SELP(13U),
+				   SCG_APLLCTRL_SELP(13U),
 		.pllndiv = SCG_APLLNDIV_NDIV(8U),
 		.pllpdiv = SCG_APLLPDIV_PDIV(1U),
 		.pllmdiv = SCG_APLLMDIV_MDIV(50U),
-		.pllRate = 150000000U
-	};
+		.pllRate = 150000000U};
 	/* Configure PLL0 to the desired values */
 	CLOCK_SetPLL0Freq(&pll0Setup);
 	/* PLL0 Monitor is disabled */
@@ -112,12 +114,11 @@ void board_early_init_hook(void)
 	/* < Set up PLL1 */
 	const pll_setup_t pll1_Setup = {
 		.pllctrl = SCG_SPLLCTRL_SOURCE(1U) | SCG_SPLLCTRL_SELI(3U) |
-				 SCG_SPLLCTRL_SELP(1U),
+				   SCG_SPLLCTRL_SELP(1U),
 		.pllndiv = SCG_SPLLNDIV_NDIV(25U),
 		.pllpdiv = SCG_SPLLPDIV_PDIV(10U),
 		.pllmdiv = SCG_SPLLMDIV_MDIV(256U),
-		.pllRate = 24576000U
-	};
+		.pllRate = 24576000U};
 
 	/* Configure PLL1 to the desired values */
 	CLOCK_SetPLL1Freq(&pll1_Setup);
@@ -235,31 +236,36 @@ void board_early_init_hook(void)
 	 */
 	SPC0->ACTIVE_CFG &= ~SPC_ACTIVE_CFG_CORELDO_VDD_DS_MASK;
 	SPC0->ACTIVE_CFG |= SPC_ACTIVE_CFG_DCDC_VDD_LVL(0x3) | SPC_ACTIVE_CFG_CORELDO_VDD_LVL(0x3) |
-			    SPC_ACTIVE_CFG_SYSLDO_VDD_DS_MASK | SPC_ACTIVE_CFG_DCDC_VDD_DS(0x2u);
+						SPC_ACTIVE_CFG_SYSLDO_VDD_DS_MASK | SPC_ACTIVE_CFG_DCDC_VDD_DS(0x2u);
 	/* Wait until it is done */
-	while (SPC0->SC & SPC_SC_BUSY_MASK) {
+	while (SPC0->SC & SPC_SC_BUSY_MASK)
+	{
 	};
-	if ((SCG0->LDOCSR & SCG_LDOCSR_LDOEN_MASK) == 0u) {
+	if ((SCG0->LDOCSR & SCG_LDOCSR_LDOEN_MASK) == 0u)
+	{
 		SCG0->TRIM_LOCK = SCG_TRIM_LOCK_TRIM_LOCK_KEY(0x5a5a) |
-			    SCG_TRIM_LOCK_TRIM_UNLOCK_MASK;
+						  SCG_TRIM_LOCK_TRIM_UNLOCK_MASK;
 		SCG0->LDOCSR |= SCG_LDOCSR_LDOEN_MASK;
 		/* wait LDO ready */
-		while ((SCG0->LDOCSR & SCG_LDOCSR_VOUT_OK_MASK) == 0u) {
+		while ((SCG0->LDOCSR & SCG_LDOCSR_VOUT_OK_MASK) == 0u)
+		{
 		};
 	}
 	SYSCON->AHBCLKCTRLSET[2] |= SYSCON_AHBCLKCTRL2_USB_HS_MASK |
-				    SYSCON_AHBCLKCTRL2_USB_HS_PHY_MASK;
+								SYSCON_AHBCLKCTRL2_USB_HS_PHY_MASK;
 	SCG0->SOSCCFG &= ~(SCG_SOSCCFG_RANGE_MASK | SCG_SOSCCFG_EREFS_MASK);
 	/* xtal = 20 ~ 30MHz */
 	SCG0->SOSCCFG = BIT(SCG_SOSCCFG_RANGE_SHIFT) | BIT(SCG_SOSCCFG_EREFS_SHIFT);
 	SCG0->SOSCCSR |= SCG_SOSCCSR_SOSCEN_MASK;
-	while (1) {
-		if (SCG0->SOSCCSR & SCG_SOSCCSR_SOSCVLD_MASK) {
+	while (1)
+	{
+		if (SCG0->SOSCCSR & SCG_SOSCCSR_SOSCVLD_MASK)
+		{
 			break;
 		}
 	}
 	SYSCON->CLOCK_CTRL |= SYSCON_CLOCK_CTRL_CLKIN_ENA_MASK |
-			      SYSCON_CLOCK_CTRL_CLKIN_ENA_FM_USBH_LPT_MASK;
+						  SYSCON_CLOCK_CTRL_CLKIN_ENA_FM_USBH_LPT_MASK;
 	CLOCK_EnableClock(kCLOCK_UsbHs);
 	CLOCK_EnableClock(kCLOCK_UsbHsPhy);
 	CLOCK_EnableUsbhsPhyPllClock(kCLOCK_Usbphy480M, BOARD_XTAL0_CLK_HZ);
@@ -353,3 +359,11 @@ void board_early_init_hook(void)
 	/* Set SystemCoreClock variable. */
 	SystemCoreClock = CLOCK_INIT_CORE_CLOCK;
 }
+
+static int board_my_board_init(void)
+{
+	printk("Board Initialized\n");
+	return 0;
+}
+
+SYS_INIT(board_my_board_init, POST_KERNEL, 90);
