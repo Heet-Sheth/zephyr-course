@@ -1,31 +1,30 @@
 #include <zephyr/kernel.h>
-#include <zephyr/drivers/gpio.h>
-#include <zephyr/logging/log.h>
-
-#define LED_NODE DT_ALIAS(led1)
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
-
-LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
+#include <zephyr/device.h>
+#include <zephyr/drivers/sensor.h>
 
 int main(void)
 {
-    bool led_state = false;
+    const struct device *dev = DEVICE_DT_GET(DT_NODELABEL(led_sensor_node));
 
-    if (!gpio_is_ready_dt(&led))
-        return 0;
+    if (!device_is_ready(dev))
+    {
+        printk("Led Sensor not ready...\n");
+    }
 
-    if (gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE) < 0)
-        return 0;
+    printk("LED sensor driver initialized. Starting loop...\n");
 
     while (1)
     {
-        if (gpio_pin_toggle_dt(&led) < 0)
-            return 0;
+        /* Turn LED ON */
+        sensor_sample_fetch(dev);
+        k_msleep(1000);
 
-        LOG_INF("Led state is %s", led_state ? "ON" : "OFF");
-
-        led_state = !led_state;
-
+        /* Turn LED OFF and read state */
+        struct sensor_value val;
+        sensor_channel_get(dev, SENSOR_CHAN_ALL, &val);
+        printk("Read sensor state: %d\n", val.val1);
         k_msleep(1000);
     }
+
+    return 0;
 }

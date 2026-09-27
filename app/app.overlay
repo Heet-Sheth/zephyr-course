@@ -1,15 +1,10 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
 
 / {
-    aliases {
-        led0 = &ext_led;
-    };
 
-    leds {
-        compatible = "gpio-leds";
-        ext_led: led_0 {
-            /* For GPIO 0-31 use &gpio0, for 32-47 use &gpio1 */
-            gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
-        };
+    led_sensor_node: led_sensor {
+        compatible = "my,led-sensor";
+        led-gpios = < &gpio4 0x12 0x1 GPIO_ACTIVE_HIGH>;
+        status = "okay";
     };
 };
