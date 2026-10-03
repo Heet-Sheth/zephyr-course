@@ -38,10 +38,25 @@ static int sensor_info_command_handler(const struct shell *sh, size_t argc, char
     return 0;
 }
 
+static int sensor_custom_value_set(const struct shell *sh, size_t argc, char **argv)
+{
+    int8_t custom_value = atoi(argv[1]);
+
+    if (custom_value < 1 || custom_value > 100)
+    {
+        shell_error(sh, "Invalid Range\n");
+        return -EINVAL;
+    }
+
+    int result = led_sensor_set_param(dev, custom_value);
+    return result;
+}
+
 SHELL_STATIC_SUBCMD_SET_CREATE(sub_sensor,
                                SHELL_CMD(fetch, NULL, "Fetch the driver API.", sensor_fetch_command_handler),
                                SHELL_CMD(read, NULL, "Read the driver API state.", sensor_get_command_handler),
                                SHELL_CMD(info, NULL, "Utility Information.", sensor_info_command_handler),
+                               SHELL_CMD_ARG(set, NULL, "Set a custom threshhold to the sensor. Range: [1-100].", sensor_custom_value_set, 2, 0),
                                SHELL_SUBCMD_SET_END);
 
 SHELL_CMD_REGISTER(sensorroot, &sub_sensor, "Sensor Control.", NULL);
