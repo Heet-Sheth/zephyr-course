@@ -1,0 +1,304 @@
+/dts-v1/;
+
+/* node '/' defined in deps/zephyr/dts/common/skeleton.dtsi:9 */
+/ {
+	#address-cells = < 0x1 >;         /* in deps/zephyr/dts/common/skeleton.dtsi:10 */
+	#size-cells = < 0x1 >;            /* in deps/zephyr/dts/common/skeleton.dtsi:11 */
+	model = "QEMU X86 emulator";      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:28 */
+	compatible = "qemu,x86_emulator"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:29 */
+
+	/* node '/chosen' defined in deps/zephyr/dts/common/skeleton.dtsi:13 */
+	chosen {
+		zephyr,sram = &dram0;                     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:49 */
+		zephyr,flash = &flash0;                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:50 */
+		zephyr,console = &uart0;                  /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:51 */
+		zephyr,bt-hci = &bt_hci_uart;             /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:52 */
+		zephyr,shell-uart = &uart0;               /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:53 */
+		zephyr,uart-pipe = &uart1;                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:54 */
+		zephyr,bt-mon-uart = &uart1;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:55 */
+		zephyr,code-partition = &slot0_partition; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:56 */
+		zephyr,flash-controller = &sim_flash;     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:57 */
+		zephyr,ieee802154 = &ieee802154;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:58 */
+		zephyr,canbus = &can0;                    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:59 */
+		zephyr,display = &ramfb0;                 /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:60 */
+		zephyr,touch = &input0;                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:61 */
+	};
+
+	/* node '/aliases' defined in deps/zephyr/dts/common/skeleton.dtsi:15 */
+	aliases {
+		uart-0 = &uart0;     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:41 */
+		uart-1 = &uart1;     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:42 */
+		eeprom-0 = &eeprom0; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:43 */
+		eeprom-1 = &eeprom1; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:44 */
+		rtc = &rtc;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:45 */
+	};
+
+	/* node '/cpus' defined in deps/zephyr/dts/x86/intel/atom.dtsi:11 */
+	cpus {
+		#address-cells = < 0x1 >;           /* in deps/zephyr/dts/x86/intel/atom.dtsi:12 */
+		#size-cells = < 0x0 >;              /* in deps/zephyr/dts/x86/intel/atom.dtsi:13 */
+		timebase-frequency = < 0x17d7840 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:32 */
+
+		/* node '/cpus/cpu@0' defined in deps/zephyr/dts/x86/intel/atom.dtsi:15 */
+		cpu: cpu@0 {
+			device_type = "cpu";          /* in deps/zephyr/dts/x86/intel/atom.dtsi:16 */
+			d-cache-line-size = < 0x40 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:17 */
+			reg = < 0x0 >;                /* in deps/zephyr/dts/x86/intel/atom.dtsi:18 */
+			compatible = "intel,x86";     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:233 */
+		};
+	};
+
+	/* node '/ioapic@fec00000' defined in deps/zephyr/dts/x86/intel/atom.dtsi:22 */
+	intc: ioapic@fec00000 {
+		compatible = "intel,ioapic"; /* in deps/zephyr/dts/x86/intel/atom.dtsi:23 */
+		#address-cells = < 0x1 >;    /* in deps/zephyr/dts/x86/intel/atom.dtsi:24 */
+		#interrupt-cells = < 0x3 >;  /* in deps/zephyr/dts/x86/intel/atom.dtsi:25 */
+		reg = < 0xfec00000 0x1000 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:26 */
+		interrupt-controller;        /* in deps/zephyr/dts/x86/intel/atom.dtsi:27 */
+		phandle = < 0x1 >;           /* in deps/zephyr/dts/x86/intel/atom.dtsi:55 */
+	};
+
+	/* node '/loapic@fee00000' defined in deps/zephyr/dts/x86/intel/atom.dtsi:30 */
+	intc_loapic: loapic@fee00000 {
+		compatible = "intel,loapic"; /* in deps/zephyr/dts/x86/intel/atom.dtsi:31 */
+		reg = < 0xfee00000 0x1000 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:32 */
+		interrupt-controller;        /* in deps/zephyr/dts/x86/intel/atom.dtsi:33 */
+		#interrupt-cells = < 0x3 >;  /* in deps/zephyr/dts/x86/intel/atom.dtsi:34 */
+		#address-cells = < 0x1 >;    /* in deps/zephyr/dts/x86/intel/atom.dtsi:35 */
+	};
+
+	/* node '/memory@0' defined in deps/zephyr/dts/x86/intel/atom.dtsi:38 */
+	dram0: memory@0 {
+		device_type = "memory";  /* in deps/zephyr/dts/x86/intel/atom.dtsi:39 */
+		reg = < 0x0 0x2000000 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:40 */
+	};
+
+	/* node '/soc' defined in deps/zephyr/dts/x86/intel/atom.dtsi:43 */
+	soc {
+		#address-cells = < 0x1 >;  /* in deps/zephyr/dts/x86/intel/atom.dtsi:44 */
+		#size-cells = < 0x1 >;     /* in deps/zephyr/dts/x86/intel/atom.dtsi:45 */
+		compatible = "simple-bus"; /* in deps/zephyr/dts/x86/intel/atom.dtsi:46 */
+		ranges;                    /* in deps/zephyr/dts/x86/intel/atom.dtsi:47 */
+
+		/* node '/soc/uart@3f8' defined in deps/zephyr/dts/x86/intel/atom.dtsi:49 */
+		uart0: uart@3f8 {
+			compatible = "ns16550";         /* in deps/zephyr/dts/x86/intel/atom.dtsi:50 */
+			reg = < 0x3f8 0x100 >;          /* in deps/zephyr/dts/x86/intel/atom.dtsi:51 */
+			io-mapped;                      /* in deps/zephyr/dts/x86/intel/atom.dtsi:52 */
+			clock-frequency = < 0x1c2000 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:53 */
+			interrupts = < 0x4 0x100 0x3 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:54 */
+			interrupt-parent = < &intc >;   /* in deps/zephyr/dts/x86/intel/atom.dtsi:55 */
+			reg-shift = < 0x0 >;            /* in deps/zephyr/dts/x86/intel/atom.dtsi:56 */
+			status = "okay";                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:178 */
+			current-speed = < 0x1c200 >;    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:179 */
+		};
+
+		/* node '/soc/uart@2f8' defined in deps/zephyr/dts/x86/intel/atom.dtsi:60 */
+		uart1: uart@2f8 {
+			compatible = "ns16550";         /* in deps/zephyr/dts/x86/intel/atom.dtsi:61 */
+			reg = < 0x2f8 0x100 >;          /* in deps/zephyr/dts/x86/intel/atom.dtsi:62 */
+			io-mapped;                      /* in deps/zephyr/dts/x86/intel/atom.dtsi:63 */
+			clock-frequency = < 0x1c2000 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:64 */
+			interrupts = < 0x3 0x100 0x3 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:65 */
+			interrupt-parent = < &intc >;   /* in deps/zephyr/dts/x86/intel/atom.dtsi:66 */
+			reg-shift = < 0x0 >;            /* in deps/zephyr/dts/x86/intel/atom.dtsi:67 */
+			status = "okay";                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:183 */
+			current-speed = < 0x1c200 >;    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:184 */
+
+			/* node '/soc/uart@2f8/bt_hci_uart' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:186 */
+			bt_hci_uart: bt_hci_uart {
+				compatible = "zephyr,bt-hci-uart"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:187 */
+				status = "okay";                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:188 */
+			};
+		};
+
+		/* node '/soc/hpet@fed00000' defined in deps/zephyr/dts/x86/intel/atom.dtsi:71 */
+		hpet: hpet@fed00000 {
+			compatible = "intel,hpet";    /* in deps/zephyr/dts/x86/intel/atom.dtsi:72 */
+			reg = < 0xfed00000 0x400 >;   /* in deps/zephyr/dts/x86/intel/atom.dtsi:73 */
+			interrupts = < 0x2 0x0 0x4 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:74 */
+			interrupt-parent = < &intc >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:75 */
+			status = "okay";              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:193 */
+		};
+
+		/* node '/soc/mfd@70' defined in deps/zephyr/dts/x86/intel/atom.dtsi:80 */
+		mfd: mfd@70 {
+			compatible = "motorola,mc146818-mfd";          /* in deps/zephyr/dts/x86/intel/atom.dtsi:81 */
+			reg = < 0x70 0x1 0x71 0x1 0x72 0x1 0x73 0x1 >; /* in deps/zephyr/dts/x86/intel/atom.dtsi:82 */
+			status = "okay";                               /* in deps/zephyr/dts/x86/intel/atom.dtsi:93 */
+
+			/* node '/soc/mfd@70/rtc' defined in deps/zephyr/dts/x86/intel/atom.dtsi:84 */
+			rtc: counter: rtc {
+				compatible = "motorola,mc146818"; /* in deps/zephyr/dts/x86/intel/atom.dtsi:85 */
+				interrupts = < 0x8 0x100 0x3 >;   /* in deps/zephyr/dts/x86/intel/atom.dtsi:86 */
+				interrupt-parent = < &intc >;     /* in deps/zephyr/dts/x86/intel/atom.dtsi:87 */
+				alarms-count = < 0x1 >;           /* in deps/zephyr/dts/x86/intel/atom.dtsi:88 */
+				status = "okay";                  /* in deps/zephyr/dts/x86/intel/atom.dtsi:90 */
+			};
+		};
+	};
+
+	/* node '/flash@500000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:35 */
+	flash0: flash@500000 {
+		compatible = "soc-nv-flash"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:36 */
+		reg = < 0x500000 0x400000 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:37 */
+	};
+
+	/* node '/pcie0' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:64 */
+	pcie0: pcie0 {
+		#address-cells = < 0x1 >;       /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:65 */
+		#size-cells = < 0x1 >;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:66 */
+		compatible = "pcie-controller"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:67 */
+		acpi-hid = "PNP0A08";           /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:68 */
+		ranges;                         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:69 */
+
+		/* node '/pcie0/can0' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:71 */
+		can0: can0 {
+			compatible = "kvaser,pcican";    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:72 */
+			status = "okay";                 /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:73 */
+			vendor-id = < 0x10e8 >;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:74 */
+			device-id = < 0x8406 >;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:75 */
+			interrupts = < 0xb 0xa100 0x3 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:76 */
+			interrupt-parent = < &intc >;    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:77 */
+
+			/* node '/pcie0/can0/can-transceiver' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:79 */
+			can-transceiver {
+				max-bitrate = < 0xf4240 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:80 */
+			};
+		};
+
+		/* node '/pcie0/eth0' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:84 */
+		eth0: eth0 {
+			compatible = "intel,e1000";     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:85 */
+			vendor-id = < 0x8086 >;         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:87 */
+			device-id = < 0x100e >;         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:88 */
+			interrupts = < 0xb 0x100 0x3 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:90 */
+			interrupt-parent = < &intc >;   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:91 */
+			status = "okay";                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:93 */
+		};
+
+		/* node '/pcie0/virtio-input-pci' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:96 */
+		virtio_input_pci: virtio-input-pci {
+			compatible = "virtio,pci";      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:97 */
+			vendor-id = < 0x1af4 >;         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:99 */
+			device-id = < 0x1052 >;         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:100 */
+			interrupts = < 0xa 0x100 0x3 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:102 */
+			interrupt-parent = < &intc >;   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:103 */
+			status = "okay";                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:105 */
+
+			/* node '/pcie0/virtio-input-pci/virtio-input' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:107 */
+			input0: virtio-input {
+				compatible = "virtio,input"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:108 */
+				display = < &ramfb0 >;       /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:109 */
+				status = "okay";             /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:110 */
+			};
+		};
+	};
+
+	/* node '/sim_flash' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:115 */
+	sim_flash: sim_flash {
+		compatible = "zephyr,sim-flash"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:116 */
+		#address-cells = < 0x1 >;        /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:118 */
+		#size-cells = < 0x1 >;           /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:119 */
+		erase-value = < 0xff >;          /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:120 */
+
+		/* node '/sim_flash/flash_sim@0' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:122 */
+		flash_sim0: flash_sim@0 {
+			compatible = "soc-nv-flash";  /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:123 */
+			reg = < 0x0 0x100000 >;       /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:124 */
+			erase-block-size = < 0x400 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:126 */
+			write-block-size = < 0x4 >;   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:127 */
+
+			/* node '/sim_flash/flash_sim@0/partitions' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:197 */
+			partitions {
+				ranges;                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:198 */
+				#address-cells = < 0x1 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:199 */
+				#size-cells = < 0x1 >;    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:200 */
+
+				/* node '/sim_flash/flash_sim@0/partitions/partition@1000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:206 */
+				storage_partition: partition@1000 {
+					compatible = "zephyr,mapped-partition"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:207 */
+					label = "storage";                      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:208 */
+					reg = < 0x1000 0x10000 >;               /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:209 */
+				};
+
+				/* node '/sim_flash/flash_sim@0/partitions/partition@11000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:212 */
+				slot0_partition: partition@11000 {
+					compatible = "zephyr,mapped-partition"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:213 */
+					label = "image-0";                      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:214 */
+					reg = < 0x11000 0x10000 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:215 */
+				};
+
+				/* node '/sim_flash/flash_sim@0/partitions/partition@21000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:218 */
+				slot1_partition: partition@21000 {
+					compatible = "zephyr,mapped-partition"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:219 */
+					label = "image-1";                      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:220 */
+					reg = < 0x21000 0x10000 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:221 */
+				};
+
+				/* node '/sim_flash/flash_sim@0/partitions/partition@31000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:224 */
+				eepromemu_partition: partition@31000 {
+					compatible = "zephyr,mapped-partition"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:225 */
+					label = "eeprom-emu";                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:226 */
+					reg = < 0x31000 0x10000 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:227 */
+					phandle = < 0x3 >;                      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:136 */
+				};
+			};
+		};
+	};
+
+	/* node '/eeprom1' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:131 */
+	eeprom1: eeprom1 {
+		status = "okay";                      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:132 */
+		compatible = "zephyr,emu-eeprom";     /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:133 */
+		size = < 0x1000 >;                    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:134 */
+		pagesize = < 0x2000 >;                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:135 */
+		partition = < &eepromemu_partition >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:136 */
+		rambuf;                               /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:137 */
+	};
+
+	/* node '/eeprom0' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:140 */
+	eeprom0: eeprom0 {
+		status = "okay";                  /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:141 */
+		compatible = "zephyr,sim-eeprom"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:142 */
+		size = < 0x1000 >;                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:143 */
+	};
+
+	/* node '/ieee802154' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:146 */
+	ieee802154: ieee802154 {
+		compatible = "zephyr,ieee802154-uart-pipe"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:147 */
+	};
+
+	/* node '/fw-cfg@510' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:150 */
+	fwcfg0: fw-cfg@510 {
+		compatible = "qemu,fw-cfg-ioport"; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:151 */
+		reg = < 0x510 0x18 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:152 */
+		status = "okay";                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:153 */
+		phandle = < 0x4 >;                 /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:169 */
+	};
+
+	/* node '/reserved-memory' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:156 */
+	reserved-memory {
+		#address-cells = < 0x1 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:157 */
+		#size-cells = < 0x1 >;    /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:158 */
+		ranges;                   /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:159 */
+
+		/* node '/reserved-memory/framebuffer@1c00000' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:161 */
+		ramfb_mem: framebuffer@1c00000 {
+			reg = < 0x1c00000 0x400000 >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:162 */
+			no-map;                       /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:163 */
+			phandle = < 0x5 >;            /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:170 */
+		};
+	};
+
+	/* node '/ramfb' defined in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:167 */
+	ramfb0: ramfb {
+		compatible = "qemu,ramfb";      /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:168 */
+		firmware = < &fwcfg0 >;         /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:169 */
+		memory-region = < &ramfb_mem >; /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:170 */
+		width = < 0x400 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:171 */
+		height = < 0x300 >;             /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:172 */
+		status = "okay";                /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:173 */
+		phandle = < 0x2 >;              /* in deps/zephyr/boards/qemu/common/qemu_x86.dtsi:109 */
+	};
+};
