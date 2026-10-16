@@ -73,6 +73,7 @@ ZTEST(ring_buf_push_pop, test_single_push_pop)
 	zassert_ok(rb_push(42), "Buffer must have space remaining to push.");
 	zassert_ok(rb_pop(&result), "A buffer with single element must return the last pushed.");
 	zassert_equal(result, 42, "The result must be provided as output.");
+	zassert_true(rb_is_empty(), "Buffer should be empty");
 }
 
 ZTEST(ring_buf_push_pop, test_fifo_order)
@@ -133,6 +134,8 @@ ZTEST(ring_buf_boundaries, test_peek_does_not_consume)
 
 	zassert_ok(rb_peek(&result), "Peeks works only on non-empty buffers.");
 	zassert_equal(result, 7, "Peek must give the last inserted value again and again.");
+
+	zassert_equal(rb_count(), 1, "Count should be 1");
 }
 
 ZTEST(ring_buf_boundaries, test_pop_null_returns_einval)
