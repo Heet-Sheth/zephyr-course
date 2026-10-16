@@ -4282,38 +4282,6 @@ events:
       CMAKE_SYSTEM_PROGRAM_PATH:
         - "/bin"
   -
-    kind: "try_compile-v1"
-    backtrace:
-      - "/opt/homebrew/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:81 (try_compile)"
-      - "/opt/homebrew/share/cmake/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
-      - "/opt/homebrew/share/cmake/Modules/CheckCCompilerFlag.cmake:105 (cmake_check_compiler_flag)"
-      - "/Users/heet/Zephyr/deps/zephyr/cmake/modules/extensions.cmake:3153 (check_c_compiler_flag)"
-      - "/Users/heet/Zephyr/deps/zephyr/cmake/modules/extensions.cmake:1725 (check_compiler_flag)"
-      - "/Users/heet/Zephyr/deps/zephyr/cmake/modules/extensions.cmake:3192 (zephyr_check_compiler_flag)"
-      - "/Users/heet/Zephyr/deps/zephyr/cmake/modules/extensions.cmake:3168 (target_cc_option_fallback)"
-      - "/Users/heet/Zephyr/deps/zephyr/cmake/modules/extensions.cmake:253 (target_cc_option)"
-      - "/Users/heet/Zephyr/deps/zephyr/CMakeLists.txt:631 (zephyr_cc_option)"
-    directories:
-      source: "/Users/heet/Zephyr/zephyr-foundational/twister-out/qemu_cortex_m3_ti_lm3s6965/zephyr_gnu/zephyr-foundational/tests/ring_buf/homework.unit.ring_buf/CMakeFiles/CMakeScratch/TryCompile-1ywH7O"
-      binary: "/Users/heet/Zephyr/zephyr-foundational/twister-out/qemu_cortex_m3_ti_lm3s6965/zephyr_gnu/zephyr-foundational/tests/ring_buf/homework.unit.ring_buf/CMakeFiles/CMakeScratch/TryCompile-1ywH7O"
-    cmakeVariables:
-      CMAKE_CXX_STDLIB_MODULES_JSON: ""
-      CMAKE_C_FLAGS: ""
-      CMAKE_C_FLAGS_DEBUG: "-g"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_MODULE_PATH: "/Users/heet/Zephyr/deps/zephyr/cmake/modules"
-    buildResult:
-      variable: "check_fmacro_prefix_map__Users_heet_Zephyr_zephyr_foundational_tests_ring_buf_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem___Users_heet_zephyr_sdk_1_0_1_gnu_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_14_3_0_include___isystem___Users_heet_zephyr_sdk_1_0_1_gnu_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_14_3_0_include___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__fuse_ld_bfd"
-      cached: true
-      stdout: |
-        Change Dir: '/Users/heet/Zephyr/zephyr-foundational/twister-out/qemu_cortex_m3_ti_lm3s6965/zephyr_gnu/zephyr-foundational/tests/ring_buf/homework.unit.ring_buf/CMakeFiles/CMakeScratch/TryCompile-1ywH7O'
-        
-        Run Build Command(s): /opt/homebrew/bin/ninja -v cmTC_d05fa
-        [1/2] /Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc -Dcheck_fmacro_prefix_map__Users_heet_Zephyr_zephyr_foundational_tests_ring_buf_CMAKE_SOURCE_DIR_C__nostartfiles__nostdlib__isystem___Users_heet_zephyr_sdk_1_0_1_gnu_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_14_3_0_include___isystem___Users_heet_zephyr_sdk_1_0_1_gnu_arm_zephyr_eabi_bin____lib_gcc_arm_zephyr_eabi_14_3_0_include___Wl___unresolved_symbols_ignore_in_object_files__Wl___entry_0__fuse_ld_bfd  -nostartfiles -nostdlib -isystem "/Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/14.3.0/include" -isystem "/Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/14.3.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd   -fmacro-prefix-map=/Users/heet/Zephyr/zephyr-foundational/tests/ring_buf=CMAKE_SOURCE_DIR -o CMakeFiles/cmTC_d05fa.dir/src.c.obj -c /Users/heet/Zephyr/zephyr-foundational/twister-out/qemu_cortex_m3_ti_lm3s6965/zephyr_gnu/zephyr-foundational/tests/ring_buf/homework.unit.ring_buf/CMakeFiles/CMakeScratch/TryCompile-1ywH7O/src.c
-        [2/2] : && /Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/arm-zephyr-eabi-gcc -nostartfiles -nostdlib -isystem "/Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/14.3.0/include" -isystem "/Users/heet/zephyr-sdk-1.0.1/gnu/arm-zephyr-eabi/bin/../lib/gcc/arm-zephyr-eabi/14.3.0/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd  CMakeFiles/cmTC_d05fa.dir/src.c.obj -o cmTC_d05fa   && :
-        
-      exitCode: 0
-  -
     kind: "find-v1"
     backtrace:
       - "/Users/heet/Zephyr/deps/zephyr/cmake/kobj.cmake:3 (find_program)"
