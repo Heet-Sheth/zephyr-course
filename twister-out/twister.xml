@@ -1,0 +1,8 @@
+<testsuites>
+	<testsuite name="qemu_cortex_m3/ti_lm3s6965" timestamp="2026-10-16T12:28:38.702376" time="1.02" tests="1" failures="0" errors="0" skipped="0">
+		<properties>
+			<property name="version" value="v4.5.0-rc1-492-ge35b686be50a" />
+		</properties>
+		<testcase classname="qemu_cortex_m3/ti_lm3s6965:homework.unit.ring_buf" name="homework.unit.ring_buf" time="1.02" />
+	</testsuite>
+</testsuites>
