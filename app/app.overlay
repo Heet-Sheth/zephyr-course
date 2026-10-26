@@ -2,6 +2,6 @@
 
 / {
     aliases {
-        signal-led = &red_led;
+        app-led = &red_led;
     };
 };

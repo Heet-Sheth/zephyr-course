@@ -4,11 +4,11 @@
 #include <zephyr/random/random.h>
 
 /* The devicetree node identifier for the "led0" alias. */
-#define LED_NODE DT_ALIAS(signal_led)
+#define LED_NODE DT_ALIAS(app_led)
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED_NODE, gpios);
 
-uint32_t blink_time = CONFIG_APP_LED;
+uint32_t sleep_duration = CONFIG_APP_HEARTBEAT_PERIOD_MS;
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
@@ -29,9 +29,9 @@ int main(void)
 
         led_state = !led_state;
 
-        LOG_INF("LED state: %s for %u ms\n", led_state ? "ON" : "OFF", blink_time);
+        LOG_INF("LED state: %s for %u ms\n", led_state ? "ON" : "OFF", sleep_duration);
 
-        k_msleep(blink_time);
+        k_msleep(sleep_duration);
     }
     return 0;
 }
