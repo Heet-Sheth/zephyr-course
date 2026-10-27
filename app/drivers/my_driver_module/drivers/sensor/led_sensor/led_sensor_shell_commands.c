@@ -34,7 +34,7 @@ static int sensor_info_command_handler(const struct shell *sh, size_t argc, char
     ARG_UNUSED(argv);
     ARG_UNUSED(argc);
 
-    shell_info(sh, "COPYRIGHT 2026 - @DarkProgrammer. \n Version -> 1.0.0\n Help \n --- \n fetch: fetch the Api state \n read: get channel info.\n Thank you for using the utility.\n");
+    shell_info(sh, "COPYRIGHT 2026 - @DarkProgrammer. \n Device name: %s \n Device ready: %s \n Version -> 1.0.0\n Help \n --- \n fetch: fetch the Api state \n read: get channel info.\n Thank you for using the utility.\n", dev->name, device_is_ready(dev) ? "Ready" : "Not Ready");
     return 0;
 }
 
