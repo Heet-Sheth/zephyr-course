@@ -1,4 +1,4 @@
-#include <nxp/mcx/MCXN236VDF-pinctrl.h>
+#include <nxp/mcx/mcxn/pinctrl/MCXN236VDF-pinctrl.h>
 
 &pinctrl {
     pinmux_flexcomm4_lpuart: pinmux_flexcomm4_lpuart {
